@@ -3,7 +3,7 @@ import { Geist, Geist_Mono, Inter } from "next/font/google";
 import Navbar from "./components/navbar/Navbar";
 import "./globals.css";
 
-const inter = Inter ({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"] });
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,14 +26,17 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const content =  (
+      <p>Yo yo</p>
+  )
   return (
     <html lang="en">
       <body
-        className={inter.className}> 
-      <Navbar />
-      <div className="pt-32">
-        {children}
-      </div>
+        className={inter.className}>
+        <Navbar />
+        <div className="pt-32">
+          {children}
+        </div>
       </body>
     </html>
   );
