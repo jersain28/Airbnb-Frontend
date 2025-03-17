@@ -1,16 +1,18 @@
 'use client';
 
+import useLoginModal from '@/app/hooks/useLoginModal';
 import { useState } from 'react';
 import MenuLink from './MenuLink';
 
 const UserNav = () => {
-    const[isopen, setIsOpen] = useState(false);
+    const loginModal = useLoginModal();
+    const [isopen, setIsOpen] = useState(false);
 
     return (
         <div className="p-2 relative inline-block border rounded-full">
-            <button 
-            onClick={() => setIsOpen(!isopen)}
-            className="flex items-center">
+            <button
+                onClick={() => setIsOpen(!isopen)}
+                className="flex items-center">
                 <svg fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                 </svg>
@@ -24,12 +26,16 @@ const UserNav = () => {
             {isopen && (
                 <div className="w-[220px] absolute top-[60px] right-0 bg-white border rounded-xl shadow-md flex flex-col cursor-pointer">
                     <MenuLink
-                    label='Log in'
-                    onClick={() => console.log('Clicked button')}
+                        label='Log in'
+                        onClick={() => {
+                            console.log('Clicked button')
+                            setIsOpen(false);
+                            loginModal.open()
+                        }}
                     />
                     <MenuLink
-                    label='Sign up'
-                    onClick={() => console.log('Clicked button')}
+                        label='Sign up'
+                        onClick={() => console.log('Clicked button')}
                     />
                 </div>
             )}

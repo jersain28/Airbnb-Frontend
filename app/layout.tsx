@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
+import LoginModal from "./components/modals/LoginModal";
 import Navbar from "./components/navbar/Navbar";
 import "./globals.css";
 
@@ -37,6 +38,7 @@ export default function RootLayout({
         <div className="pt-32">
           {children}
         </div>
+        <LoginModal />
       </body>
     </html>
   );
