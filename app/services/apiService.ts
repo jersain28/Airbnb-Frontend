@@ -12,7 +12,7 @@ const apiService = {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
-                    'Authorization': `bearer ${token}`
+                    'Authorization': `Bearer ${token}`
                 }
             })
 
@@ -66,6 +66,7 @@ const apiService = {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
+                    
                    
                 }
             })
