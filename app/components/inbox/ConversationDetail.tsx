@@ -10,11 +10,13 @@ interface ConversationDetailProps {
     userId: string;
     token: string;
     conversation: ConversationType;
+    messages: MessageType[];
 }
 
 const ConversationDetail: React.FC<ConversationDetailProps> = ({
     userId,
     token,
+    messages,
     conversation
 }) => {
     const messagesDiv = useRef(null);
@@ -29,6 +31,7 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
         shouldReconnect: () => true
     },
     )
+
 
     useEffect(() => {
         console.log('Connection state changed', readyState)
@@ -81,6 +84,16 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
                 ref={messagesDiv}
                 className="max-h-[400px] overflow-auto flex flex-col space-y-4"
             >
+                {messages.map((message, index) => (
+                    <div
+                        key={index}
+                        className={`w-[80%]py-4 px-6 rounded-xl ${message.created_by.name == myUser?.name ? 'ml-[20%] bg-blue-200' : 'bg-gray-200'}`}
+                    >
+                        <p className="font-bold text-gray-500">{message.created_by.name}</p>
+                        <p>{message.body}</p>
+                    </div>
+                ))}
+
                 {realtimeMessages.map((message, index) => (
                     <div
                         key={index}
