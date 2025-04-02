@@ -112,7 +112,7 @@ const AddPropertyModal = () => {
 
                     <CustomButtton
                         label='Next'
-                        onclick={() => setCurrentStep(2)} >
+                        onClick={() => setCurrentStep(2)} >
                     </CustomButtton>
                 </>
             ) : currentStep == 2 ? (
@@ -144,12 +144,12 @@ const AddPropertyModal = () => {
                     <CustomButtton
                         label='Previous'
                         className='mb-2 bg-black hover:bg-gray-800'
-                        onclick={() => setCurrentStep(1)} >
+                        onClick={() => setCurrentStep(1)} >
                     </CustomButtton>
 
                     <CustomButtton
                         label='Next'
-                        onclick={() => setCurrentStep(3)} >
+                        onClick={() => setCurrentStep(3)} >
                     </CustomButtton>
                 </>
             ) : currentStep == 3 ? (
@@ -202,12 +202,12 @@ const AddPropertyModal = () => {
                     <CustomButtton
                         label='Previous'
                         className='mb-2 bg-black hover:bg-gray-800'
-                        onclick={() => setCurrentStep(2)} >
+                        onClick={() => setCurrentStep(2)} >
                     </CustomButtton>
 
                     <CustomButtton
                         label='Next'
-                        onclick={() => setCurrentStep(4)} >
+                        onClick={() => setCurrentStep(4)} >
                     </CustomButtton>
                 </>
             ) : currentStep == 4 ? (
@@ -224,12 +224,12 @@ const AddPropertyModal = () => {
                     <CustomButtton
                         label='Previous'
                         className='mb-2 bg-black hover:bg-gray-800'
-                        onclick={() => setCurrentStep(3)} >
+                        onClick={() => setCurrentStep(3)} >
                     </CustomButtton>
 
                     <CustomButtton
                         label='Next'
-                        onclick={() => setCurrentStep(5)} >
+                        onClick={() => setCurrentStep(5)} >
                     </CustomButtton>
                 </>
             ) : (
@@ -273,12 +273,12 @@ const AddPropertyModal = () => {
                     <CustomButtton
                         label='Previous'
                         className='mb-2 bg-black hover:bg-gray-800'
-                        onclick={() => setCurrentStep(4)} >
+                        onClick={() => setCurrentStep(4)} >
                     </CustomButtton>
 
                     <CustomButtton
                         label='Submit'
-                        onclick={submitForm}>
+                        onClick={submitForm}>
                     </CustomButtton>
                 </>
             )}

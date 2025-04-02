@@ -4,11 +4,11 @@ import { MessageType } from "@/app/inbox/[id]/page";
 import { ConversationType, UserType } from "@/app/inbox/page";
 import { useEffect, useRef, useState } from "react";
 import useWebSocket from "react-use-websocket";
-import CustomButtton from "../forms/CustomButton";
+import CustomButton from "../forms/CustomButton";
 
 interface ConversationDetailProps {
-    userId: string;
     token: string;
+    userId: string;
     conversation: ConversationType;
     messages: MessageType[];
 }
@@ -19,23 +19,21 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
     messages,
     conversation
 }) => {
-    const messagesDiv = useRef(null);
+    const messagesDiv = useRef<HTMLDivElement>(null);
     const [newMessage, setNewMessage] = useState('');
     const myUser = conversation.users?.find((user) => user.id == userId)
     const otherUser = conversation.users?.find((user) => user.id != userId)
     const [realtimeMessages, setRealtimeMessages] = useState<MessageType[]>([]);
 
-
-    const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(`ws://127.0.0.1:8000/ws/${conversation.id}/?token=${token}`, {
+    const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(`${process.env.NEXT_PUBLIC_WS_HOST}/ws/${conversation.id}/?token=${token}`, {
         share: false,
-        shouldReconnect: () => true
-    },
+        shouldReconnect: () => true,
+      },
     )
 
-
     useEffect(() => {
-        console.log('Connection state changed', readyState)
-    }, [readyState])
+        console.log("Connection state changed", readyState);
+    }, [readyState]);
 
     useEffect(() => {
         if (lastJsonMessage && typeof lastJsonMessage === 'object' && 'name' in lastJsonMessage && 'body' in lastJsonMessage) {
@@ -48,23 +46,25 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
                 conversationId: conversation.id
             }
 
-            setRealtimeMessages((realtimeMessages) => [...realtimeMessages, message])
+            setRealtimeMessages((realtimeMessages) => [...realtimeMessages, message]);
         }
+
         scrollToBottom();
-    }, [lastJsonMessage])
+    }, [lastJsonMessage]);
 
     const sendMessage = async () => {
         console.log('sendMessage'),
 
-            sendJsonMessage({
-                event: 'chat_message',
-                data: {
-                    body: newMessage,
-                    name: myUser?.name,
-                    sent_to_id: otherUser?.id,
-                    conversation_id: conversation.id
-                }
-            });
+        sendJsonMessage({
+            event: 'chat_message',
+            data: {
+                body: newMessage,
+                name: myUser?.name,
+                sent_to_id: otherUser?.id,
+                conversation_id: conversation.id
+            }
+        });
+
         setNewMessage('');
 
         setTimeout(() => {
@@ -80,7 +80,7 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
 
     return (
         <>
-            <div
+            <div 
                 ref={messagesDiv}
                 className="max-h-[400px] overflow-auto flex flex-col space-y-4"
             >
@@ -97,15 +97,12 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
                 {realtimeMessages.map((message, index) => (
                     <div
                         key={index}
-                        className={`w-[80%] py-4 px-6 rounded-xl ${message.name == myUser?.name ? 'ml-[20%] bg-blue-200' : 'bg-gray-200'}`}
+                        className={`w-[80%]py-4 px-6 rounded-xl ${message.name == myUser?.name ? 'ml-[20%] bg-blue-200' : 'bg-gray-200'}`}
                     >
-                        <p className="font-bold text-gray-500">
-                            {message.name ? message.name : 'Usuario Anónimo'}
-                        </p>
+                        <p className="font-bold text-gray-500">{message.name}</p>
                         <p>{message.body}</p>
                     </div>
                 ))}
-
             </div>
 
             <div className="mt-4 py-4 px-6 flex border border-gray-300 space-x-4 rounded-xl">
@@ -114,12 +111,12 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
                     placeholder="Type your message..."
                     className="w-full p-2 bg-gray-200 rounded-xl"
                     value={newMessage}
-                    onChange={(e) => setNewMessagge(e.target.value)}
+                    onChange={(e) => setNewMessage(e.target.value)}
                 />
 
-                <CustomButtton
+                <CustomButton 
                     label='Send'
-                    onclick={sendMessage}
+                    onClick={sendMessage}
                     className="w-[100px]"
                 />
             </div>
