@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import AddPropertyModal from "./components/modals/AddPropertyModal";
 import LoginModal from "./components/modals/LoginModal";
+import SearchModal from "./components/modals/SearchModal";
 import SignupModal from "./components/modals/SignupModal";
 import Navbar from "./components/navbar/Navbar";
 import "./globals.css";
@@ -41,6 +42,7 @@ export default function RootLayout({
           {children}
         </div>
         <LoginModal />
+        <SearchModal />
         <SignupModal />
         <AddPropertyModal />
       </body>
