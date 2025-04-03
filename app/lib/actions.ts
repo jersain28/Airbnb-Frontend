@@ -12,7 +12,7 @@ export async function handleRefresh() {
         }),
         headers: {
             'Accept':'application/json',
-            'Content-Tyoe':'application/json'
+            'Content-Type':'application/json'
         }
     })
         .then(response=>response.json())
@@ -20,10 +20,10 @@ export async function handleRefresh() {
             console.log('Response - Refresh:', json);
             if (json.access) {
                 (await cookies()).set('session_access_token', json.access,{
-                    httpOnly:true,
-                    secure:process.env.NODE_ENV === 'production',
-                    maxAge:60 * 60, 
-                    path:'/'
+                    httpOnly: true,
+                    secure: false,
+                    maxAge: 60 * 60, 
+                    path: '/'
                 });
 
                 return json.access;
@@ -39,24 +39,24 @@ export async function handleRefresh() {
     return token;
 }
 
-export async function handleLogin(userId:string,accessToken:string,refreshToken:string) {
-    (await cookies()).set('session_userid',userId,{
-        httpOnly:true,
-        secure:process.env.NODE_ENV === 'production',
-        maxAge:60 * 60 * 24 * 7, 
-        path:'/'
+export async function handleLogin(userId: string, accessToken: string, refreshToken: string) {
+    (await cookies()).set('session_userid', userId,{
+        httpOnly: true,
+        secure: false,
+        maxAge: 60 * 60 * 24 * 7, 
+        path: '/'
     });
     (await cookies()).set('session_access_token', accessToken,{
-        httpOnly:true,
-        secure:process.env.NODE_ENV === 'production',
-        maxAge:60 * 60, 
-        path:'/'
+        httpOnly: true,
+        secure: false,
+        maxAge: 60 * 60, 
+        path: '/'
     });
     (await cookies()).set('session_refresh_token', refreshToken,{
-        httpOnly:true,
-        secure:process.env.NODE_ENV === 'production',
-        maxAge:60 * 60 * 24 * 7, 
-        path:'/'
+        httpOnly: true,
+        secure: false,
+        maxAge: 60 * 60 * 24 * 7, 
+        path: '/'
     });
     
 }
@@ -68,9 +68,10 @@ export async function resetAuthCookies() {
 }
 
 //
-// Recibir datos
+// Get Data
+
 export async function getUserId(){
-    const userId=(await cookies()).get('session_userid')?.value;
+    const userId = (await cookies()).get('session_userid')?.value;
     return userId ? userId : null
 }
 
